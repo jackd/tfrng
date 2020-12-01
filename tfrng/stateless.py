@@ -14,8 +14,9 @@ class StatelessGenerator(core.Generator):
         self._seed = seed
 
     def _split_seed(self):
-        self._seed, seed = tf.unstack(
-            tf.random.experimental.stateless_split(self._seed, 2), axis=0
+        seed = self._seed
+        self._seed = tf.squeeze(
+            tf.random.experimental.stateless_split(self._seed, 1), axis=0
         )
         return seed
 

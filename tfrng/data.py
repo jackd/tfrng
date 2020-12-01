@@ -32,7 +32,8 @@ def with_seed(seed: Optional[int] = None, size: Optional[int] = None) -> Transfo
 
     Returns:
         A transform that, when applied to a dataset with elements `element`, returns
-        another dataset with elements `(element_seed, element)`.
+        another dataset with elements `(element_seed, element)`, where `element_seed`
+        has shape `[] if size is None else [size]`.
     """
 
     def transform(dataset: tf.data.Dataset) -> tf.data.Dataset:
