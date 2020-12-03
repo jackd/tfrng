@@ -60,14 +60,15 @@ def stateless_map(
     Example usage:
     ```python
 
-    def map_func(i):
-        return tf.cast(i, tf.float32) + tfrng.uniform(())
+    def map_func(x):
+        return x + tfrng.uniform(())
 
 
     map_kwargs = dict(
         num_parallel_calls=tf.data.experimental.AUTOTUNE, deterministic=True)
 
-    dataset = tf.data.Dataset.range(8).apply(stateless_map(map_func, **map_kwargs))
+    dataset = tf.data.Dataset.range(8, output_type=tf.float32).apply(
+        stateless_map(map_func, **map_kwargs))
     ```
 
     Arguments:

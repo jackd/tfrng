@@ -5,17 +5,17 @@ import tensorflow as tf
 
 import tfrng
 
-base = tf.data.Dataset.range(4)
+base = tf.data.Dataset.range(4, output_type=tf.float32)
 
 
 def transform(x, scale, shift):
-    return (tf.cast(x, tf.float32) + shift) * scale
+    return (x + shift) * scale
 
 
 def tfrng_map_func(x):
     scale = tfrng.normal((), stddev=0.1, mean=1.0)
     shift = tfrng.uniform(())
-    return (tf.cast(x, tf.float32) + shift) * scale
+    return transform(x, scale, shift)
 
 
 def naive_map_func(x):

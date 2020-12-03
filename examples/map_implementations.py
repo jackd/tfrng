@@ -4,12 +4,12 @@ import tensorflow as tf
 import tfrng  # pylint: disable=import-error
 
 
-def map_func(i):
-    return tf.cast(i, tf.float32) + tfrng.uniform(())
+def map_func(x):
+    return x + tfrng.uniform(())
 
 
 map_kwargs = dict(num_parallel_calls=tf.data.experimental.AUTOTUNE, deterministic=True)
-base = tf.data.Dataset.range(5)
+base = tf.data.Dataset.range(5, output_type=tf.float32)
 
 # incorrect deterministic implementation
 dataset = base.map(map_func, **map_kwargs)
